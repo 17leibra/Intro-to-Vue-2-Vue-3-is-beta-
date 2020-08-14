@@ -9,9 +9,24 @@
 
   </head>
   <body>
+    <div class="nav-bar"></div>
     <div id="app">
-      <h1>{{ product }}</h1> 
-      <p>{{ description }} </p>
+      <div class="product">
+        <div class="product-image">
+          <img :src="image">
+        </div>
+        <div class="product-info">
+          <h1>{{ product }}</h1> 
+          <p>{{ description }} </p>
+          <a :href="link" target="_blank">link to Vue Mastery</a>
+          <p v-if="inventory > 10">In Stock</p>
+          <p v-else-if="inventory<=10 && inventory>0">Almost Sold Out!</p>
+          <p v-else>Out Of Stock</p>
+          <p v-show="onSale">On Sale!</p>
+          <!-- v-show can be used to hide elemets if expression is false v-if removes the element from DOM-->
+        </div>
+        
+      </div>
     </div>
     <!-- Import Js -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
