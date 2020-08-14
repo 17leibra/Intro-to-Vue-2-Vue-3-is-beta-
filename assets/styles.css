@@ -87,3 +87,9 @@ textarea {
   color: #16C0B0;
   text-decoration: underline;
 }
+
+.footer{
+  align-self: bottom;
+  text-align: center;
+  background: linear-gradient(-90deg, #84CF6A, #16C0B0);
+}

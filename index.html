@@ -18,7 +18,6 @@
         <div class="product-info">
           <h1>{{ product }}</h1> 
           <p>{{ description }} </p>
-          <a :href="link" target="_blank">link to Vue Mastery</a>
           <p v-if="inventory > 10">In Stock</p>
           <p v-else-if="inventory<=10 && inventory>0">Almost Sold Out!</p>
           <p v-else>Out Of Stock</p>
@@ -27,6 +26,7 @@
         </div>
         
       </div>
+      <div class="footer"><a :href="link" target="_blank">link to Vue Mastery</a></div>
     </div>
     <!-- Import Js -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
