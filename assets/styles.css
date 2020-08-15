@@ -93,3 +93,7 @@ textarea {
   text-align: center;
   background: linear-gradient(-90deg, #84CF6A, #16C0B0);
 }
+
+.outOfStock{
+  text-decoration-line: line-through;
+}
