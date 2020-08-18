@@ -11,47 +11,9 @@
   <body>
     <div class="nav-bar"></div>
     <div id="app">
-      <div class="product">
-        <div class="product-image">
-          <img :src="image">
-        </div>
-        <div class="product-info">
-          <h1>{{ title }}</h1> 
-          <p>{{ description }} </p>
-          <p v-if="inStock">In Stock</p>
-          <p v-else  :class="{outOfStock: !inStock}">Out Of Stock</p>
-          <p v-show="onSale">{{saleType}}</p>
-          <!-- v-show can be used to hide elemets if expression is false v-if removes the element from DOM-->
-          <h4>Details</h4>
-          <ul>
-            <li v-for="detail in details">{{detail}}</li>
-          </ul>
-          <h4>Colors</h4>
-          <div v-for="(variant, index) in variants" 
-            :key="variant.variantId"
-            class="color-box" 
-            :style="{ backgroundColor:  variant.variantColor}"
-            @mouseover="updateProduct(index)" >
-          </div>
-          <h4>Sizes</h4>
-          <ul>
-            <li v-for="size in sizes">{{size}}</li>
-          </ul>
-          
-          <button v-on:click="addToCart" 
-                :disabled="!inStock"
-                :class="{ disabledButton: !inStock}" >Add to Cart</button>
-          <button @click="removeFromCart"
-                :disabled="cart===0" 
-                :class="{ disabledButton: cart===0}">Remove From Cart</button>
-          <div class="cart">
-            <p>Cart {{cart}}</p>
-          </div>
-        </div>
-        
-      </div>
-      <div class="footer"><a :href="link" target="_blank">link to Vue Mastery</a></div>
+      <product :premium="premium"></product>
     </div>
+    <div class="footer"><a :href="link" target="_blank">link to Vue Mastery</a></div>
     <!-- Import Js -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="./main.js"></script>
