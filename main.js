@@ -39,17 +39,21 @@ Vue.component('product', {
              :class="{ disabledButton: cart===0}"-->
         </div>
         <div>
-            <h2>Reviews</h2>
-            <p v-if="!reviews.lenght">There are no reviews yet. </p>
+        <product-review @review-submitted="addReview"></product-review>    
+        <h2>Reviews</h2>
+            
+            <p v-if="!reviews.lenght">There are no reviews yet.</p>
+            <p v-else></p>
             <ul>
                 <li v-for="review in reviews">
                     <p>{{ review.name}}</p>
-                    <p></p>
-                    <p></p>
+                    <p>Rating: {{review.rating}} </p>
+                    <p>Review: {{review.review}} </p>
+                    <p>Recommendation: {{review.recommend}} </p>
                 </li>
             </ul>
-        </div
-        <product-review @review-submitted="addReview"></product-review>
+        </div>
+        </br>
         <div class="footer"><a :href="link" target="_blank">link to Vue Mastery</a></div>
         
         </div>
@@ -124,7 +128,10 @@ Vue.component('product', {
     
 })
 Vue.component('product-review', {
-    template: `<form class="review-form" @submit.prevent="onSubmit">
+    template: `
+    <div>
+    <h2>Submit A Review</h2>
+    <form class="review-form" @submit.prevent="onSubmit">
     <p>
       <label for="name">Name:</label>
       <input id="name" v-model="name" placeholder="name">
@@ -145,30 +152,53 @@ Vue.component('product-review', {
         <option>1</option>
       </select>
     </p>
-        
+    <p>Would you recommend this product?</br>
+        <label for="yes"> YES </label> <input type="radio" id="yes" value="yes" name="recommend" v-model="recommend"> 
+        <label for="no"> NO </label> <input type="radio" id="no" value="no" name="recommend" v-model="recommend">
+    </p>
+    
     <p>
       <input type="submit" value="Submit">  
     </p>    
   
-  </form>`, 
+  </form>
+  <p v-if="errors.length">
+    <b>Please correct the following error(s):</b>
+    <ul>
+        <li v-for="error in errors">{{ error }}</li>
+    </ul>
+  </p>
+  </div>`, 
     data(){
         return{
             name: null,
             review: null,
-            rating: null
+            rating: null,
+            recommend: null,
+            errors: []
         }
     },
     methods: {
         onSubmit() {
-            let productReview = {
-                name: this.name,
-                review: this.review,
-                rating: this.rating
+            if(this.name && this.review && this.rating && this.recommend){
+                let productReview = {
+                    name: this.name,
+                    review: this.review,
+                    rating: this.rating,
+                    recommend: this.recommend
+                }
+                this.$emit('review-submitted', productReview)
+                this.name = null,
+                this.review = null,
+                this.rating = null,
+                this.recommend= null
+            }else{
+                if(!this.name) this.errors.push("Name Required.")
+                if(!this.review) this.errors.push("Review Required.")
+                if(!this.rating) this.errors.push("Rating Required.")
+                if(!this.recommend) this.errors.push("Recommendation Required.")
             }
-            this.$emit('review-submitted', productReview)
-            this.name = null,
-            this.review = null,
-            this.rating = null
+            
         }
     },
 }),
